@@ -51,27 +51,29 @@ Once we completed the labeling process for all the captured images, we proceeded
 
 Run
 ```
-cd jetson-inference/python/training/detection/ssd
-python3 train_ssd.py --dataset-type=voc \
+$ cd jetson-inference/python/training/detection/ssd
+$ python3 train_ssd.py --dataset-type=voc \
 --data=data/Road_signs --model-dir=models/Road_signs \
 --epochs=30
 ```
 
 Since detectNet uses Open Neural Network Exchange (ONNX) as the model format, we need to convert our trained model from PyTorch to ONNX through the command below:
 ```
-python3 onnx_export.py --model-dir=models/Road_signs
+$ python3 onnx_export.py --model-dir=models/Road_signs
 ```
 
 ### Results
 
 To check the model performance, run:
 ```
-detectnet --model=models/Road_signs/ssd-mobilenet.onnx --labels=models/Road_signs/labels.txt \
+$ detectnet --model=models/Road_signs/ssd-mobilenet.onnx --labels=models/Road_signs/labels.txt \
           --input-blob=input_0 --output-cvg=scores --output-bbox=boxes \
             csi://0
 ```
 
-![]()
+![training-result](/res/training-result.jpg)
+
+## Control JetBot
 
 ## Reference
 [Collecting your own Detection Datasets](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect-detection.md)
