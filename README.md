@@ -29,12 +29,13 @@ To start our traffic sign recognition program, we utilized transfer learning by 
 
 ## Getting Started
 
+
 ### Data Collection
 To begin the process, we first prepared prototypes of road signs and traffic lights. From left to right, we have a stop sign, two speed limit signs, a parking sign, and two traffic lights.
 
 ![Road Signs](/res/signs.jpg)
 
-Next, in order to train our custom object detection model, we also need to crate a label file that defined the class labels for our dataset. Check this [**MEGA useful link**](https://www.youtube.com/watch?v=2XMkPW_sIGg) for step-by-step tutorial!
+Next, create a new folderin order to train our custom object detection model, we also need to crate a label file that defined the class labels for our dataset. Check this [**MEGA useful link**](https://www.youtube.com/watch?v=2XMkPW_sIGg) for step-by-step tutorial!
 
 ![Label](/res/label.png)
 
@@ -42,6 +43,7 @@ Next, in order to train our custom object detection model, we also need to crate
 ## Training
 
 ## Reference
+[Collecting your own Classification Datasets](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)
 [Training Object Detection Models](https://www.youtube.com/watch?v=2XMkPW_sIGg)
 
 
