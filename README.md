@@ -16,7 +16,7 @@ This project aims to develop a deep learning-based system for detecting and reco
 
 ## Object Detection and Recognition
 
-We used the jetson-inference as the foundation, which is a high-performance repository that utilizes NVIDIA TensorRT to deploy neural networks onto the Jetson Nano development board. We utilize the detectNet library from the DNN vision library to achieve real-time object detection and image object detection.
+We used [jetson-inference](https://github.com/dusty-nv/jetson-inference) as the foundation, which is a high-performance repository that utilizes NVIDIA TensorRT to deploy neural networks onto the Jetson Nano development board. We utilize the detectNet library from the DNN vision library to achieve real-time object detection and image object detection.
 
 SSD-MobileNet-V2 is a deep neural network architecture that is designed for real-time object detection. It is a variant of the popular MobileNet architecture, which was introduced in 2017 and has since become a widely-used framework for mobile object detection. It can run on mobile devices and process high-resolution images (up to 1080p) at frame rates of up to 30 fps with high detection accuracy and precision.
 
@@ -34,10 +34,12 @@ To begin the process, we first prepared prototypes of road signs and traffic lig
 
 ![]()
 
-Next, in order to train our custom object detection modewe also need to crate a label file
+Next, in order to train our custom object detection model, we also need to crate a label file that defined the class labels for our dataset. Check this [**MEGA useful link**](https://www.youtube.com/watch?v=2XMkPW_sIGg) for step-by-step tutorial!
 
 
 ## Training
 
+## Reference
+[Training Object Detection Models](https://www.youtube.com/watch?v=2XMkPW_sIGg)
 
 
