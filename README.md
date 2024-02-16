@@ -29,7 +29,13 @@ To start our traffic sign recognition program, we utilized transfer learning by 
 
 ## Getting Started
 
-## Data Collection
+### Data Collection
+To begin the process, we first prepared prototypes of road signs and traffic lights. From left to right, we have a stop sign, two speed limit signs, a parking sign, and two traffic lights.
+
+![]()
+
+Next, in order to train our custom object detection modewe also need to crate a label file
+
 
 ## Training
 
