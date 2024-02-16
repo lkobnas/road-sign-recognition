@@ -20,7 +20,7 @@ We used the jetson-inference as the foundation, which is a high-performance repo
 
 SSD-MobileNet-V2 is a deep neural network architecture that is designed for real-time object detection. It is a variant of the popular MobileNet architecture, which was introduced in 2017 and has since become a widely-used framework for mobile object detection. It can run on mobile devices and process high-resolution images (up to 1080p) at frame rates of up to 30 fps with high detection accuracy and precision.
 
-![example-mobilenet](res\example-mobilenet.jpg)
+![example-mobilenet](/res/example-mobilenet.jpg)
 
 ## Transfer learning with SSD-MobileNet
 
