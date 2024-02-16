@@ -1,4 +1,4 @@
-# road-sign-recognition
+# Real-time Traffic Sign Detection
 
 ![banner](/res/demo-full.gif)
 
