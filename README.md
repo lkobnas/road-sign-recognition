@@ -3,7 +3,7 @@
 ![banner](/res/demo-full.gif)
 
 
-## Contents
+## Content
 - [<ins>Background</ins>](#background)
 - [<ins>Object Detection and Recognition</ins>](#object-detection-and-recognition)
 - [<ins>Transfer learning with SSD-MobileNet</ins>](#transfer-learning-with-ssd-mobilenet)
@@ -29,7 +29,6 @@ To start our traffic sign recognition program, we utilized transfer learning by 
 
 ## Getting Started
 
-
 ### Data Collection
 To begin the process, we first prepared prototypes of road signs and traffic lights. From left to right, we have a stop sign, two speed limit signs, a parking sign, and two traffic lights.
 
@@ -39,11 +38,43 @@ Next, create a new folderin order to train our custom object detection model, we
 
 ![Label](/res/label.png)
 
+Follow the above tutorial for using Data Capture Control tool. This tool enabled us to capture video feeds, freeze the image and manually labeling each individual object by enclosing it with a colored rectangle. Try to capture the images from different orientations, camera perspectives, lighting conditions, and backgrounds. This approach was crucial in constructing a robust model that could effectively handle environmental noise and adapt to changes in the surrounding conditions.
 
-## Training
+Make sure all the label file and images are saved in a new folder, for example:
+```
+/jetson-inference/python/training/detection/ssd/data/Road_signs
+```
+
+### Training
+
+Once we completed the labeling process for all the captured images, we proceeded to retrain the ssd-mobilenet object detection model using our custom dataset.
+
+Run
+```
+cd jetson-inference/python/training/detection/ssd
+python3 train_ssd.py --dataset-type=voc \
+--data=data/Road_signs --model-dir=models/Road_signs \
+--epochs=30
+```
+
+Since detectNet uses Open Neural Network Exchange (ONNX) as the model format, we need to convert our trained model from PyTorch to ONNX through the command below:
+```
+python3 onnx_export.py --model-dir=models/Road_signs
+```
+
+### Results
+
+To check the model performance, run:
+```
+detectnet --model=models/Road_signs/ssd-mobilenet.onnx --labels=models/Road_signs/labels.txt \
+          --input-blob=input_0 --output-cvg=scores --output-bbox=boxes \
+            csi://0
+```
+
+![]()
 
 ## Reference
-[Collecting your own Classification Datasets](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)
+[Collecting your own Detection Datasets](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect-detection.md)
 [Training Object Detection Models](https://www.youtube.com/watch?v=2XMkPW_sIGg)
 
 
