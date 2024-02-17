@@ -1,4 +1,4 @@
-# Real-time Traffic Sign Detection
+# Real-time Traffic Sign Detection - JetBot
 
 ![banner](/res/demo-full.gif)
 
@@ -12,7 +12,7 @@
 
 ## Background
 
-This project aims to develop a deep learning-based system for detecting and recognizing traffic signs in Nvidia's JetBot. The object recognition program uses a Convolutional Neural Network (CNN) to accurately classify various types of traffic signs, such as speed limit signs, stop signs, traffic lights.
+This project aims to develop a deep learning-based system for detecting and recognizing traffic signs in Nvidia's JetBot. The object recognition program uses a Convolutional Neural Network (CNN) to accurately classify various types of traffic signs, such as speed limit signs, stop signs, traffic lights. Then control JetBot according to the information on different road signs.
 
 ## Object Detection and Recognition
 
@@ -75,6 +75,20 @@ $ detectnet --model=models/Road_signs/ssd-mobilenet.onnx --labels=models/Road_si
 
 ## Control JetBot
 
+In this part, apply the trained detection model to JetBot and program JetBot to stop, speed up or slow down according to the instruction of the road models.
+
+In order to integrate the traffic sign recognition program with the JetBot driving system, several modifications and additions are needed.
+
+First, we accessed the training model directory and made changes to the detectnet.py file, we made a new copy called [detectnet_mod.py](/src/detectnet_mod.py), which is responsible for launching the real-time object detection program.
+
+Add the following code for importing the JetBot vehicle control library and adding an extra argument to the detectNet command to capture the program's output for controlling JetBot:
+```
+from robot import Robot
+robot = Robot()
+```
+```
+parser.add_argument("--use_motor", action='store_true', help="enable motor for sign detection")
+```
 
 
 
