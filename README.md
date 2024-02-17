@@ -139,7 +139,13 @@ for detection in detections:
         start_robot(detection)
 ```
 
-To launch the detection program
+To launch the detection program, use:
+```bash
+$ cd jetson-inference/python/training/detection/ssd
+$ python detectnet_mod.py --model=models/Road_signs/ssd-mobilenet.onnx  \ 
+--labels=models/Road_signs/labels.txt --input-blob=input_0 --output-cvg=scores \
+--output-bbox=boxes --use_motor
+```
 
 
 ## Reference
