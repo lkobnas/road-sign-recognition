@@ -8,6 +8,8 @@
 - [<ins>Object Detection and Recognition</ins>](#object-detection-and-recognition)
 - [<ins>Transfer learning with SSD-MobileNet</ins>](#transfer-learning-with-ssd-mobilenet)
 - [<ins>Getting Started</ins>](#getting-started)
+- [<ins>Data Collection</ins>](#data-collection)
+- [<ins>Controlling JetBot</ins>](#controlling-jetbot)
 
 
 ## Background
@@ -73,7 +75,7 @@ $ detectnet --model=models/Road_signs/ssd-mobilenet.onnx --labels=models/Road_si
 
 ![training-result](/res/training-result.jpg)
 
-## Control JetBot
+## Controlling JetBot
 
 In this part, apply the trained detection model to JetBot and program JetBot to stop, speed up or slow down according to the instruction of the road models.
 
@@ -146,6 +148,13 @@ $ python detectnet_mod.py --model=models/Road_signs/ssd-mobilenet.onnx  \
 --labels=models/Road_signs/labels.txt --input-blob=input_0 --output-cvg=scores \
 --output-bbox=boxes --use_motor
 ```
+
+## Results
+
+A|B
+--|--
+![](https://example.com/a.gif)|![](https://example.com/b.gif)
+
 
 
 ## Reference
