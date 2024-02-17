@@ -1,4 +1,4 @@
-# Real-time Traffic Sign Detection - JetBot
+# Real-time Traffic Sign Detection with JetBot
 
 ![banner](/res/demo-full.gif)
 
@@ -10,6 +10,7 @@
 - [<ins>Getting Started</ins>](#getting-started)
 - [<ins>Data Collection</ins>](#data-collection)
 - [<ins>Controlling JetBot</ins>](#controlling-jetbot)
+- [<ins>Results</ins>](#results-1)
 
 
 ## Background
@@ -151,9 +152,12 @@ $ python detectnet_mod.py --model=models/Road_signs/ssd-mobilenet.onnx  \
 
 ## Results
 
-A|B
---|--
-![](https://example.com/a.gif)|![](https://example.com/b.gif)
+### On board camera view
+![](/res/demo-full.gif)
+
+
+### External view
+![](/res/demo-external.gif)
 
 
 
