@@ -50,7 +50,7 @@ Make sure all the label file and images are saved in a new folder, for example:
 Once we completed the labeling process for all the captured images, we proceeded to retrain the ssd-mobilenet object detection model using our custom dataset.
 
 Run
-```
+```bash
 $ cd jetson-inference/python/training/detection/ssd
 $ python3 train_ssd.py --dataset-type=voc \
 --data=data/Road_signs --model-dir=models/Road_signs \
@@ -58,14 +58,14 @@ $ python3 train_ssd.py --dataset-type=voc \
 ```
 
 Since detectNet uses Open Neural Network Exchange (ONNX) as the model format, we need to convert our trained model from PyTorch to ONNX through the command below:
-```
+```bash
 $ python3 onnx_export.py --model-dir=models/Road_signs
 ```
 
 ### Results
 
 To check the model performance, run:
-```
+```bash
 $ detectnet --model=models/Road_signs/ssd-mobilenet.onnx --labels=models/Road_signs/labels.txt \
           --input-blob=input_0 --output-cvg=scores --output-bbox=boxes \
             csi://0
@@ -82,14 +82,64 @@ In order to integrate the traffic sign recognition program with the JetBot drivi
 First, we accessed the training model directory and made changes to the detectnet.py file, we made a new copy called [detectnet_mod.py](/src/detectnet_mod.py), which is responsible for launching the real-time object detection program.
 
 Add the following code for importing the JetBot vehicle control library and adding an extra argument to the detectNet command to capture the program's output for controlling JetBot:
-```
+```py
 from robot import Robot
 robot = Robot()
 ```
-```
+```py
 parser.add_argument("--use_motor", action='store_true', help="enable motor for sign detection")
 ```
+Since we were using the jetson-inference repository for this task while the JetBot library was stored in a separate repository called "jetbot," we couldn't directly use the robot driver function. To overcome this, we copied the necessary files (robot.py and motor.py) from the JetBot repository and included them in the current directory. Additionally, we added required libraries such as Adafruit_GPIO, Adafruit_MotorHAT, and Adafruit_PureIO to enable the use of the JetBot motor. The additional codes and libraries can be found [**here**](/src/ssd/), simply copy them all and paste it inside the ```ssd``` folder with the ```detectnet_mod.py``` file.
 
+After that, we added a response function in ```detectnet_mod.py``` to decide what actions are needed to be performed when a specific traffic sign was detected.
+
+|     Traffic sign	    |          Action           |
+|:---------------------:|:-------------------------:|
+| Stop sign	    	    |           Stop            |
+| Speed limit 30	    |  Slow down to speed 0.15  |
+| Speed limit 50	    |	Speed up to speed 0.2   |
+| Parking sign		    |           Stop            |
+| Red traffic light	    |	        Stop            |
+| Green traffic light   |       Start moving        |
+
+
+```py
+robot_status = False #False : stop, True: active
+robot_speed = 0.15
+
+def start_robot(detection):
+	global robot_status
+	global robot_speed
+	global last_stop
+	if robot_status == True:
+		robot.forward(robot_speed)
+
+		if detection .ClassID == 1 or detection.ClassID == 4 or detection.ClassID == 5: #STOP_SIGN, PARKING_SIGN, RED_TRAFFIC_LIGHT
+			robot_status = False
+
+		elif detection.ClassID == 2:	#SPEED_LIMIT_30
+			robot_speed = 0.1
+
+		elif detection.ClassID == 3:	#SPEED_LIMIT_50
+			robot_speed = 0.15
+
+	elif robot_status == False:
+		robot.stop()
+		if detection.ClassID == 6:	#GREEN_TRAFFIC_LIGHT
+			robot.forward(robot_speed)
+			robot_status = True
+```
+
+Lastly, we called the response function into the for loop of the detection program so that the function can be triggered whenever the frame has been updated.
+
+```py
+for detection in detections:
+    print(detection)
+    if opt.use_motor:
+        start_robot(detection)
+```
+
+To launch the detection program
 
 
 ## Reference
